@@ -1,0 +1,7 @@
+# Ignore ROS 2 build, install trees, etc
+build/
+install/
+log/
+
+# Ignore ROS 1 files
+devel/

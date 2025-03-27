@@ -1,0 +1,26 @@
+name: pcd-bridge
+
+services:
+  mqtt-broker:
+    image: eclipse-mosquitto
+    network_mode: host
+    restart: unless-stopped
+
+  pcd-cluster:
+    build: ./pcd-cluster/
+    network_mode: host
+    restart: unless-stopped
+
+  pcd-bridge:
+    build: ./pcd-bridge
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./pcd-bridge/workspace:/workspace
+
+  pcd-bridge-receiver:
+    build: ./pcd-bridge-receiver
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./pcd-bridge-receiver/src:/workspace/src
