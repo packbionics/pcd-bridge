@@ -1,0 +1,50 @@
+import rospy
+
+from sensor_msgs.msg import PointCloud2, PointField
+
+import paho.mqtt.client as mqtt
+
+from pcd_serializable import PCDSerializable
+
+
+
+publisher = None 
+
+# The callback for when the client receives a CONNACK response from the server.
+def on_connect(client, userdata, flags, reason_code, properties):
+    global publisher
+
+    print(f"Connected with result code {reason_code}")
+    # Subscribing in on_connect() means that if we lose the connection and
+    # reconnect then subscriptions will be renewed.
+    client.subscribe("bridge/pointcloud2")
+
+    publisher = rospy.Publisher('points', PointCloud2, queue_size=10)  
+
+# The callback for when a PUBLISH message is received from the server.
+def on_message(client, userdata, msg):
+    print('data from: ', msg.topic)
+    
+    serial_pcd = PCDSerializable.from_json_string(msg.payload)
+    pcd2 = serial_pcd.to_pcd2(PointCloud2, PointField)
+    publisher.publish(pcd2)
+
+
+def main(args=None):
+    mqttc = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+    mqttc.on_connect = on_connect
+    mqttc.on_message = on_message
+
+    mqttc.connect("localhost", 1883, 60)
+
+    rospy.init_node('pcd_bridge_in', anonymous=True)
+
+    # Blocking call that processes network traffic, dispatches callbacks and
+    # handles reconnecting.
+    # Other loop*() functions are available that give a threaded interface and a
+    # manual interface.
+    mqttc.loop_forever()
+
+
+if __name__ == '__main__':
+    main()

@@ -156,8 +156,9 @@ include_directories(
 ## Mark executable scripts (Python etc.) for installation
 ## in contrast to setup.py, you can choose the destination
 catkin_install_python(PROGRAMS
-  scripts/pcd_bridge_sender.py
-  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
+scripts/pcd_bridge_sender.py
+scripts/pcd_bridge_receiver.py
+DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
 
 ## Mark executables for installation

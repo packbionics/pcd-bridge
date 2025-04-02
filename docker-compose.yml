@@ -19,6 +19,15 @@ services:
       - ./pcd-bridge/workspace:/workspace
       - ./pcd_serializable.py:/workspace/devel/lib/pcd_bridge/pcd_serializable.py
 
+  pcd-bridge-in:
+    build: ./pcd-bridge
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./pcd-bridge/workspace:/workspace
+      - ./pcd_serializable.py:/workspace/devel/lib/pcd_bridge/pcd_serializable.py
+    command: ["pcd_bridge_receiver.py"]
+
   pcd-bridge-receiver:
     build: ./pcd-bridge-receiver
     network_mode: host
