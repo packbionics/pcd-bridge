@@ -16,7 +16,7 @@ RUN apt-get install build-essential python3-pip -y
 
 RUN pip install paho-mqtt
 
-RUN apt-get install python3-colcon-common-extensions -y
+RUN apt-get update && apt-get install python3-colcon-common-extensions -y
 
 RUN apt-get install ros-humble-rmw-cyclonedds-cpp -y
 ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
