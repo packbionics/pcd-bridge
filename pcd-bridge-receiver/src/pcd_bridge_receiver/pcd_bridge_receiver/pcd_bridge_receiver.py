@@ -6,8 +6,6 @@ from sensor_msgs.msg import PointCloud2, PointField
 
 import paho.mqtt.client as mqtt
 
-import json
-
 from pcd_serializable import PCDSerializable
 
 
@@ -33,7 +31,7 @@ def on_message(client, userdata, msg):
     print('data from: ', msg.topic)
     
     serial_pcd = PCDSerializable.from_json_string(msg.payload)
-    pcd2 = serial_pcd.to_pcd2()
+    pcd2 = serial_pcd.to_pcd2(PointCloud2, PointField)
     publisher.publish(pcd2)
 
 

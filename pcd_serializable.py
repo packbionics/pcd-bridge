@@ -1,3 +1,6 @@
+import json
+
+
 class PCDSerializable:
     def __init__(self, pc2):
         self.height = 0
@@ -47,8 +50,8 @@ class PCDSerializable:
 
         return pcd_serial
     
-    def to_pcd2(self):
-        pcd2 = PointCloud2()
+    def to_pcd2(self, pcd_data_type, pcd_fied_type):
+        pcd2 = pcd_data_type()
 
         pcd2.header.frame_id = 'map'
 
@@ -56,7 +59,7 @@ class PCDSerializable:
         pcd2.width = self.width
 
         for field in self.fields:
-            point_field2 = PointField()
+            point_field2 = pcd_fied_type()
 
             point_field2.name = field['name']
             point_field2.offset = field['offset']

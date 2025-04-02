@@ -17,7 +17,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./pcd-bridge/workspace:/workspace
-      - ./pcd_serializable.py:/workspace/src/pcd_bridge/scripts/pcd_serializable.py
+      - ./pcd_serializable.py:/workspace/devel/lib/pcd_bridge/pcd_serializable.py
 
   pcd-bridge-receiver:
     build: ./pcd-bridge-receiver
