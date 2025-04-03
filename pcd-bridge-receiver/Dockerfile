@@ -25,4 +25,5 @@ ENV RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
 
 RUN chmod +x /workspace/entrypoint.sh
 
-ENTRYPOINT /workspace/entrypoint.sh
+ENTRYPOINT ["/workspace/entrypoint.sh"]
+CMD ["pcd_bridge_receiver"]

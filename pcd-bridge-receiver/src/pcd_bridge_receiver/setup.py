@@ -20,7 +20,8 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'pcd_bridge_receiver = pcd_bridge_receiver.pcd_bridge_receiver:main'
+            'pcd_bridge_receiver = pcd_bridge_receiver.pcd_bridge_receiver:main',
+            'pcd_bridge_sender = pcd_bridge_receiver.pcd_bridge_sender:listener'
         ],
     },
 )

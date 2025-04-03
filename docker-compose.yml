@@ -35,3 +35,12 @@ services:
     volumes:
       - ./pcd-bridge-receiver/src:/workspace/src
       - ./pcd_serializable.py:/workspace/install/pcd_bridge_receiver/lib/pcd_bridge_receiver/pcd_serializable.py
+  
+  pcd-bridge-sender:
+    build: ./pcd-bridge-receiver
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./pcd-bridge-receiver/src:/workspace/src
+      - ./pcd_serializable.py:/workspace/install/pcd_bridge_receiver/lib/pcd_bridge_receiver/pcd_serializable.py
+    command: ["pcd_bridge_sender"]
